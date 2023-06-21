@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animation</title>
+  <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet">
+  <link href="../app.css" rel="stylesheet">
+  <script src="../app.js"></script>
+
+  <link href="./word.css" rel="stylesheet">
+  <script src="./word.js"></script>
+</head>
+<body>
+  <div class="app">
+    <nav>
+      <a href="../word/index.html">WORD</a>
+    </nav>
+    <section>
+      <h1>TEXT</h1>
+      <article>
+        <h2>아래에서 올라오는 애니메이션</h2>
+        <div class="word-under"></div>
+      </article>
+      <article>
+        <h2>옆으로 밀어내는 애니메이션</h2>
+        <div class="word-push"></div>
+      </article>
+      <article>
+        <h2>텍스트 흩뿌리기</h2>
+        <div class="word-scatter">
+          <div>
+            <span>T</span>
+            <span>E</span>
+            <span>S</span>
+            <span>T</span>
+          </div>
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="black"/>
+          </svg>
+        </div>
+      </article>
+    </section>
+  </div>
+  <script>
+    word.under.show()
+
+    word.push.show()
+  </script>
+</body>
+</html>

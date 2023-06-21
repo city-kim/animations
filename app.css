@@ -1,0 +1,9 @@
+.app {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.app nav {
+  margin-bottom: 2rem;
+}

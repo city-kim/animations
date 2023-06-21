@@ -1,0 +1,191 @@
+/* 공통 container용 */
+section {
+  display: grid;
+  gap: 4rem;
+  padding-top: 2rem;
+}
+section h1 {
+  font-size: 2rem;
+}
+
+section article h2 {
+  padding: 1rem 0;
+  font-size: 1rem;
+}
+
+/* word-under 아래에서 개별적으로 올라오는 애니메이션 */
+.word-under {
+  /* 아래 애니메이션은 flex로 지정 후 overflow hidden으로 밑에서 올라오는 글자를 숨겨준다 */
+  display: flex;
+  overflow: hidden;
+  /* 최종적으로 fade하게 사라질때를 위한 transition */
+  transition: opacity 1s ease-out;
+}
+
+.word-under.hidden {
+  /* hidden 클래스가 있을경우 opacity만 0으로 조정하여 fade를 구현한다 */
+  opacity: 0;
+}
+
+.word-under span {
+  /* 기본 opacity는 0 transform: translateY는 50%로 밑에서 숨겨진상태로 나타날 준비를 해준다*/
+  opacity: 0;
+  transform: translateY(50%);
+  /* 애니메이션은 1.5초의 지연을 갖고 cubic-bezier는 빠르게 시작되고 느리게 끝나도록 하며 애니메이션 종료를 유지한다*/
+  animation: under-animation 1.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-fill-mode: forwards;
+
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+@keyframes under-animation {
+  from {
+    /* 안보이고 아래에 위치하다가 */
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  to {
+    /* fade로 나타나고 위로 올라오게 애니메이션 조정 */
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+/* word-push 위에서 밀어내는 애니메이션 */
+.word-push {
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  /* 최종적으로 fade하게 사라질때를 위한 transition */
+  transition: opacity 1s ease-out;
+}
+
+.word-push.hidden {
+  /* hidden 클래스가 있을경우 opacity만 0으로 조정하여 fade를 구현한다 */
+  opacity: 0;
+}
+
+.word-push span {
+  /* 기본 opacity는 0*/
+  opacity: 0;
+
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.word-push span.word-push-opacity {
+  animation: word-push-opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-fill-mode: forwards;
+}
+
+@keyframes word-push-opacity {
+  from {
+    /* 안보였다가 */
+    opacity: 0;
+  }
+  to {
+    /* fade로 나타나기만 함 */
+    opacity: 1;
+  }
+}
+
+.word-push span.word-push-scale {
+  animation: word-push-scale 1.5s ease both;
+  animation-fill-mode: forwards;
+  transition: all 1s ease;
+}
+
+@keyframes word-push-scale {
+  0% {
+    /* 크기가 없다가 */
+    width: 0;
+  }
+  50% {
+    /* 최대로 늘어남 */
+    opacity: 0;
+  }
+  100% {
+    /* 유지 */
+    opacity: 1;
+  }
+}
+
+/* 텍스트 흩뿌리기 */
+.word-scatter {
+  /* 가로를 전부 차지하지 않도록 inline-block */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+	position: relative;
+	overflow: hidden;
+}
+
+.word-scatter div {
+  /* grid로 한줄에 2개씩 */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 0.5rem;
+  overflow: hidden;
+}
+
+.word-scatter span {
+  font-size: 2rem;
+  font-weight: bold;
+  /* 0.75초 딜레이 후 시작 */
+  animation-delay: 0.75s;
+  /* 기본 크기의 130%를 하여 정사각형이 되게함 */
+  transform: scaleX(130%);
+  animation-name: scatterSpan;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+/* 한곳에 뭉쳤다 흩뿌려주게 설정 */
+.word-scatter span:nth-child(1) {
+  transform: translate(50%, 200%);
+}
+
+.word-scatter span:nth-child(2) {
+  transform: translate(-50%, 200%);
+}
+
+.word-scatter span:nth-child(3) {
+  transform: translate(50%, 150%);
+}
+
+.word-scatter span:nth-child(4) {
+  transform: translate(-50%, 150%);
+}
+
+@keyframes scatterSpan {
+  /* 원래자리로 돌아가게 애니메이션 */
+  to {
+    transform: translate(0%, 0%);
+  }
+}
+
+.word-scatter svg {
+  /* svg는 별도로 띄워준다 */
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+}
+
+.word-scatter svg rect {
+  /* border가 없다가 나타나게 하기위해 svg로 한다 */
+  stroke: black;
+  fill: none;
+  stroke-width: 8;
+  stroke-dasharray: 1000;
+  animation: pathStroke 3.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-fill-mode: forwards;
+}
+
+@keyframes pathStroke {
+  /* dashoffset 0에서 최대로 나와 border가 나타나는 애니메이션 구현 */
+  to {stroke-dashoffset: 0;}
+  from { stroke-dashoffset: 1000;}
+}
